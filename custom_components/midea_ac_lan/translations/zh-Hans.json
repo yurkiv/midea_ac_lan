@@ -99,6 +99,9 @@
       "cooking": {
         "name": "烹饪中"
       },
+      "cold_power": {
+        "name": "制冷功率"
+      },
       "dissipate_heat": {
         "name": "散热"
       },
@@ -213,6 +216,9 @@
       "protection": {
         "name": "安全防护"
       },
+      "pump_on": {
+        "name": "水泵"
+      },
       "reaction": {
         "name": "反应"
       },
@@ -236,6 +242,9 @@
       },
       "smart_grid": {
         "name": "智能电网"
+      },
+      "sleep_power": {
+        "name": "睡眠功率"
       },
       "eco": {
         "name": "ECO"
@@ -344,6 +353,9 @@
       },
       "water_shortage": {
         "name": "缺水"
+      },
+      "warm_power": {
+        "name": "制热功率"
       },
       "with_pressure": {
         "name": "带压中"
@@ -468,6 +480,9 @@
           "high": "高速",
           "full": "强劲"
         }
+      },
+      "heating_mode": {
+        "name": "采暖模式"
       },
       "fresh_air_mode": {
         "name": "新风风速",
@@ -688,6 +703,9 @@
       "ai_switch": {
         "name": "AI开关"
       },
+      "activity_mode_target_temperature": {
+        "name": "外出模式目标温度"
+      },
       "material": {
         "name": "材质"
       },
@@ -756,11 +774,23 @@
       "freezer_setting_temp": {
         "name": "冷冻室设置温度"
       },
+      "flow_volume": {
+        "name": "循环流量"
+      },
       "hcho": {
         "name": "甲醛"
       },
       "heating_leaving_temperature": {
         "name": "取暖出水温度"
+      },
+      "heating_gap_temperature": {
+        "name": "采暖回差温度"
+      },
+      "heating_temperature": {
+        "name": "采暖温度"
+      },
+      "heating_unit_type": {
+        "name": "采暖末端类型"
       },
       "heating_power": {
         "name": "加热功率"
@@ -785,6 +815,9 @@
       },
       "keep_warm_time": {
         "name": "保温时间"
+      },
+      "last_time": {
+        "name": "上次时间"
       },
       "left_salt": {
         "name": "剩余盐量"
@@ -883,6 +916,9 @@
       "refrigerator_setting_temp": {
         "name": "冷藏室设置温度"
       },
+      "return_temperature": {
+        "name": "回水温度"
+      },
       "regeneration_left_seconds": {
         "name": "再生剩余秒数"
       },
@@ -909,6 +945,9 @@
       },
       "soak_time": {
         "name": "浸泡时间"
+      },
+      "sleep_mode_target_temperature": {
+        "name": "睡眠模式目标温度"
       },
       "soft_available": {
         "name": "软化水可用量"
@@ -937,6 +976,9 @@
       "time_remaining": {
         "name": "剩余时间"
       },
+      "three_way_mode": {
+        "name": "三通阀模式"
+      },
       "top_compartment_remaining": {
         "name": "上层剩余时间"
       },
@@ -957,6 +999,9 @@
       },
       "tvoc": {
         "name": "TVOC"
+      },
+      "user_mode_target_temperature": {
+        "name": "居家模式目标温度"
       },
       "wash_level": {
         "name": "洗涤档位"

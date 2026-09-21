@@ -53,6 +53,9 @@ from midealan.devices.b6 import DeviceAttributes as B6Attributes
 from midealan.devices.bf import WORK_MODE_MAP as BF_WORK_MODE_MAP
 from midealan.devices.bf import DeviceAttributes as BFAttributes
 from midealan.devices.bf import FirePower as BFFirePower
+from midealan.devices.c1 import (  # pylint: disable=import-error,no-name-in-module
+    DeviceAttributes as C1Attributes,
+)
 from midealan.devices.c2 import DeviceAttributes as C2Attributes
 from midealan.devices.c3 import DeviceAttributes as C3Attributes
 from midealan.devices.ca import DeviceAttributes as CAAttributes
@@ -1616,6 +1619,168 @@ MIDEA_DEVICES: dict[int, dict[str, dict[str, Any] | str]] = {
                 "translation_key": "execute_status",
                 "name": "Execute Status",
                 "icon": "mdi:check-circle",
+            },
+        },
+    },
+    0xC1: {
+        "name": "Electric Wall-Hung Boiler",
+        "entities": {
+            "climate": {
+                "type": Platform.CLIMATE,
+                "icon": "mdi:radiator",
+                "default": True,
+            },
+            C1Attributes.power: {
+                "type": Platform.SWITCH,
+                "translation_key": "power",
+                "name": "Power",
+                "icon": "mdi:power",
+            },
+            C1Attributes.heating_mode: {
+                "type": Platform.SELECT,
+                "translation_key": "heating_mode",
+                "name": "Heating Mode",
+                "options": "heating_modes",
+                "icon": "mdi:radiator",
+            },
+            C1Attributes.current_temperature: {
+                "type": Platform.SENSOR,
+                "name": "Current Temperature",
+                "device_class": SensorDeviceClass.TEMPERATURE,
+                "unit": UnitOfTemperature.CELSIUS,
+                "state_class": SensorStateClass.MEASUREMENT,
+            },
+            C1Attributes.return_temperature: {
+                "type": Platform.SENSOR,
+                "translation_key": "return_temperature",
+                "name": "Return Temperature",
+                "device_class": SensorDeviceClass.TEMPERATURE,
+                "unit": UnitOfTemperature.CELSIUS,
+                "state_class": SensorStateClass.MEASUREMENT,
+            },
+            C1Attributes.heating_temperature: {
+                "type": Platform.SENSOR,
+                "translation_key": "heating_temperature",
+                "name": "Heating Temperature",
+                "device_class": SensorDeviceClass.TEMPERATURE,
+                "unit": UnitOfTemperature.CELSIUS,
+                "state_class": SensorStateClass.MEASUREMENT,
+            },
+            C1Attributes.heating_gap_temperature: {
+                "type": Platform.SENSOR,
+                "translation_key": "heating_gap_temperature",
+                "name": "Heating Gap Temperature",
+                "device_class": SensorDeviceClass.TEMPERATURE,
+                "unit": UnitOfTemperature.CELSIUS,
+                "state_class": SensorStateClass.MEASUREMENT,
+            },
+            C1Attributes.user_mode_target_temperature: {
+                "type": Platform.SENSOR,
+                "translation_key": "user_mode_target_temperature",
+                "name": "User Mode Target Temperature",
+                "device_class": SensorDeviceClass.TEMPERATURE,
+                "unit": UnitOfTemperature.CELSIUS,
+                "state_class": SensorStateClass.MEASUREMENT,
+            },
+            C1Attributes.activity_mode_target_temperature: {
+                "type": Platform.SENSOR,
+                "translation_key": "activity_mode_target_temperature",
+                "name": "Activity Mode Target Temperature",
+                "device_class": SensorDeviceClass.TEMPERATURE,
+                "unit": UnitOfTemperature.CELSIUS,
+                "state_class": SensorStateClass.MEASUREMENT,
+            },
+            C1Attributes.sleep_mode_target_temperature: {
+                "type": Platform.SENSOR,
+                "translation_key": "sleep_mode_target_temperature",
+                "name": "Sleep Mode Target Temperature",
+                "device_class": SensorDeviceClass.TEMPERATURE,
+                "unit": UnitOfTemperature.CELSIUS,
+                "state_class": SensorStateClass.MEASUREMENT,
+            },
+            C1Attributes.flow_volume: {
+                "type": Platform.SENSOR,
+                "translation_key": "flow_volume",
+                "name": "Flow Volume",
+                "icon": "mdi:pipe",
+                "state_class": SensorStateClass.MEASUREMENT,
+            },
+            C1Attributes.last_time: {
+                "type": Platform.SENSOR,
+                "translation_key": "last_time",
+                "name": "Last Time",
+                "icon": "mdi:timer-outline",
+                "unit": UnitOfTime.MINUTES,
+                "state_class": SensorStateClass.MEASUREMENT,
+            },
+            C1Attributes.error_code: {
+                "type": Platform.SENSOR,
+                "translation_key": "error_code",
+                "name": "Error Code",
+                "icon": "mdi:alpha-e-circle",
+            },
+            C1Attributes.heating_unit_type: {
+                "type": Platform.SENSOR,
+                "translation_key": "heating_unit_type",
+                "name": "Heating Unit Type",
+                "icon": "mdi:radiator",
+            },
+            C1Attributes.three_way_mode: {
+                "type": Platform.SENSOR,
+                "translation_key": "three_way_mode",
+                "name": "Three-Way Mode",
+                "icon": "mdi:valve",
+            },
+            C1Attributes.status: {
+                "type": Platform.SENSOR,
+                "translation_key": "status",
+                "name": "Status",
+                "icon": "mdi:information",
+            },
+            C1Attributes.heating: {
+                "type": Platform.BINARY_SENSOR,
+                "translation_key": "heating",
+                "name": "Heating",
+                "icon": "mdi:radiator",
+                "device_class": BinarySensorDeviceClass.RUNNING,
+            },
+            C1Attributes.fault: {
+                "type": Platform.BINARY_SENSOR,
+                "translation_key": "fault",
+                "name": "Fault",
+                "icon": "mdi:alert-circle",
+                "device_class": BinarySensorDeviceClass.PROBLEM,
+            },
+            C1Attributes.pump_on: {
+                "type": Platform.BINARY_SENSOR,
+                "translation_key": "pump_on",
+                "name": "Pump",
+                "icon": "mdi:pump",
+                "device_class": BinarySensorDeviceClass.RUNNING,
+            },
+            C1Attributes.standby: {
+                "type": Platform.BINARY_SENSOR,
+                "translation_key": "standby",
+                "name": "Standby",
+                "icon": "mdi:power-sleep",
+            },
+            C1Attributes.warm_power: {
+                "type": Platform.BINARY_SENSOR,
+                "translation_key": "warm_power",
+                "name": "Warm Power",
+                "icon": "mdi:fire",
+            },
+            C1Attributes.cold_power: {
+                "type": Platform.BINARY_SENSOR,
+                "translation_key": "cold_power",
+                "name": "Cold Power",
+                "icon": "mdi:snowflake",
+            },
+            C1Attributes.sleep_power: {
+                "type": Platform.BINARY_SENSOR,
+                "translation_key": "sleep_power",
+                "name": "Sleep Power",
+                "icon": "mdi:sleep",
             },
         },
     },

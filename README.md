@@ -65,6 +65,7 @@ Please check the document links below for the supported features and usage of ea
 | B4   | Toaster                    | [B4.md](doc/B4.md) |
 | B6   | Range Hood                 | [B6.md](doc/B6.md) |
 | BF   | Microwave Steam Oven       | [BF.md](doc/BF.md) |
+| C1   | Electric Wall-Hung Boiler  | [C1.md](doc/C1.md) |
 | C2   | Toilet                     | [C2.md](doc/C2.md) |
 | C3   | Heat Pump Wi-Fi Controller | [C3.md](doc/C3.md) |
 | CA   | Refrigerator               | [CA.md](doc/CA.md) |

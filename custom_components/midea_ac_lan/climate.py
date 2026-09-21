@@ -44,6 +44,12 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from midealan.device import DeviceType
 from midealan.devices.ac import DeviceAttributes as ACAttributes
 from midealan.devices.ac import MideaACDevice
+from midealan.devices.c1 import (  # pylint: disable=import-error,no-name-in-module
+    DeviceAttributes as C1Attributes,
+)
+from midealan.devices.c1 import (  # pylint: disable=import-error,no-name-in-module
+    MideaC1Device,
+)
 from midealan.devices.c3 import DeviceAttributes as C3Attributes
 from midealan.devices.c3 import MideaC3Device
 from midealan.devices.cc import DeviceAttributes as CCAttributes
@@ -64,6 +70,7 @@ _LOGGER = logging.getLogger(__name__)
 
 TEMPERATURE_MAX = 30
 TEMPERATURE_MIN = 16
+C1_DEVICE_TYPE = 0xC1
 
 FAN_SILENT = "silent"
 FAN_FULL_SPEED = "full"
@@ -83,6 +90,7 @@ async def async_setup_entry(
         | MideaCCClimate
         | MideaCFClimate
         | MideaC3Climate
+        | MideaC1Climate
         | MideaFBClimate
         | MideaEDTeaBarClimate
     ] = []
@@ -104,6 +112,8 @@ async def async_setup_entry(
                 devs.append(MideaCFClimate(device, entity_key))
             elif device.device_type == DeviceType.C3:
                 devs.append(MideaC3Climate(device, entity_key, config["zone"]))
+            elif device.device_type == C1_DEVICE_TYPE:
+                devs.append(MideaC1Climate(device, entity_key))
             elif device.device_type == DeviceType.FB:
                 devs.append(MideaFBClimate(device, entity_key))
             elif device.device_type == DeviceType.ED:
@@ -112,7 +122,12 @@ async def async_setup_entry(
 
 
 type MideaClimateDevice = (
-    MideaACDevice | MideaCCDevice | MideaCFDevice | MideaC3Device | MideaFBDevice
+    MideaACDevice
+    | MideaCCDevice
+    | MideaCFDevice
+    | MideaC3Device
+    | MideaC1Device
+    | MideaFBDevice
 )
 
 
@@ -1017,6 +1032,95 @@ class MideaC3Climate(MideaClimate):
             self.turn_off()
         else:
             self._device.set_mode(self._zone, self.hvac_modes.index(hvac_mode))
+
+
+class MideaC1Climate(MideaClimate):
+    """Midea C1 electric wall-hung boiler (space heating as climate)."""
+
+    _device: MideaC1Device
+
+    _attr_max_temp: float = 60
+    _attr_min_temp: float = 30
+    _attr_target_temperature_high: float | None = 60
+    _attr_target_temperature_low: float | None = 30
+    _attr_target_temperature_step: float | None = PRECISION_WHOLE
+
+    def __init__(self, device: MideaC1Device, entity_key: str) -> None:
+        """Midea C1 climate entity init."""
+        super().__init__(device, entity_key)
+        self._attr_hvac_modes = [HVACMode.OFF, HVACMode.HEAT]
+        self._attr_preset_modes: list[str] = self._device.heating_modes
+
+    @property
+    def supported_features(self) -> ClimateEntityFeature:
+        """Midea C1 climate supported features."""
+        features = (
+            ClimateEntityFeature.TARGET_TEMPERATURE | ClimateEntityFeature.PRESET_MODE
+        )
+        if (MAJOR_VERSION, MINOR_VERSION) >= (2024, 2):
+            features |= ClimateEntityFeature.TURN_OFF | ClimateEntityFeature.TURN_ON
+        return features
+
+    @property
+    def hvac_mode(self) -> HVACMode:
+        """Midea C1 climate hvac mode."""
+        return (
+            HVACMode.HEAT
+            if self._device.get_attribute(C1Attributes.power)
+            else HVACMode.OFF
+        )
+
+    @property
+    def preset_mode(self) -> str:
+        """Midea C1 climate preset mode (user / activity / sleep)."""
+        mode = cast("str", self._device.get_attribute(C1Attributes.heating_mode))
+        if mode == "unknown" and self._attr_preset_modes:
+            return self._attr_preset_modes[0]
+        return mode
+
+    @property
+    def current_temperature(self) -> float | None:
+        """Midea C1 climate current temperature."""
+        raw = self._device.get_attribute(C1Attributes.current_temperature)
+        if isinstance(raw, int | float):
+            return float(raw)
+        return None
+
+    @property
+    def target_temperature(self) -> float:
+        """Midea C1 climate heating target setpoint."""
+        raw = self._device.get_attribute(C1Attributes.heating_target_temperature)
+        if isinstance(raw, int | float):
+            return float(raw)
+        return float(self.min_temp)
+
+    def set_temperature(self, **kwargs: Any) -> None:  # ruff:ignore[any-type]
+        """Midea C1 climate set heating target temperature."""
+        if ATTR_TEMPERATURE not in kwargs:
+            return
+        temperature = float(round(float(kwargs[ATTR_TEMPERATURE])))
+        hvac_mode = kwargs.get(ATTR_HVAC_MODE)
+        if hvac_mode == HVACMode.OFF:
+            self.turn_off()
+            return
+        self._device.set_attribute(
+            attr=C1Attributes.heating_target_temperature,
+            value=temperature,
+        )
+
+    def set_hvac_mode(self, hvac_mode: HVACMode) -> None:
+        """Midea C1 climate set hvac mode."""
+        if hvac_mode == HVACMode.OFF:
+            self.turn_off()
+        else:
+            self.turn_on()
+
+    def set_preset_mode(self, preset_mode: str) -> None:
+        """Midea C1 climate set heating schedule mode."""
+        self._device.set_attribute(
+            attr=C1Attributes.heating_mode,
+            value=preset_mode,
+        )
 
 
 class MideaFBClimate(MideaClimate):

@@ -99,6 +99,9 @@
       "cooking": {
         "name": "Cooking"
       },
+      "cold_power": {
+        "name": "Cold Power"
+      },
       "dissipate_heat": {
         "name": "Heat Dissipation"
       },
@@ -216,6 +219,9 @@
       "protection": {
         "name": "Protection"
       },
+      "pump_on": {
+        "name": "Pump"
+      },
       "refrigerator_door": {
         "name": "Refrigerator Door"
       },
@@ -236,6 +242,9 @@
       },
       "smart_grid": {
         "name": "Smart Grid"
+      },
+      "sleep_power": {
+        "name": "Sleep Power"
       },
       "eco": {
         "name": "ECO"
@@ -306,6 +315,9 @@
       },
       "water_shortage": {
         "name": "Water Shortage"
+      },
+      "warm_power": {
+        "name": "Warm Power"
       },
       "with_pressure": {
         "name": "With Pressure"
@@ -424,6 +436,9 @@
           "high": "High",
           "full": "Full"
         }
+      },
+      "heating_mode": {
+        "name": "Heating Mode"
       },
       "fresh_air_mode": {
         "name": "Fresh Air Speed",
@@ -644,6 +659,9 @@
       "ai_switch": {
         "name": "AI Switch"
       },
+      "activity_mode_target_temperature": {
+        "name": "Activity Mode Target Temperature"
+      },
       "material": {
         "name": "Material"
       },
@@ -712,11 +730,23 @@
       "freezer_setting_temp": {
         "name": "Freezer Setting Temperature"
       },
+      "flow_volume": {
+        "name": "Flow Volume"
+      },
       "hcho": {
         "name": "Methanal"
       },
       "heating_leaving_temperature": {
         "name": "Heating Leaving Water Temperature"
+      },
+      "heating_gap_temperature": {
+        "name": "Heating Gap Temperature"
+      },
+      "heating_temperature": {
+        "name": "Heating Temperature"
+      },
+      "heating_unit_type": {
+        "name": "Heating Unit Type"
       },
       "heating_power": {
         "name": "Heating Power"
@@ -741,6 +771,9 @@
       },
       "keep_warm_time": {
         "name": "Keep Warm Time"
+      },
+      "last_time": {
+        "name": "Last Time"
       },
       "left_salt": {
         "name": "Left Salt"
@@ -839,6 +872,9 @@
       "refrigerator_setting_temp": {
         "name": "Refrigerator Setting Temperature"
       },
+      "return_temperature": {
+        "name": "Return Temperature"
+      },
       "regeneration_left_seconds": {
         "name": "Regeneration Left Seconds"
       },
@@ -865,6 +901,9 @@
       },
       "soak_time": {
         "name": "Soak time"
+      },
+      "sleep_mode_target_temperature": {
+        "name": "Sleep Mode Target Temperature"
       },
       "soft_available": {
         "name": "Soft Water Available"
@@ -893,6 +932,9 @@
       "time_remaining": {
         "name": "Time Remaining"
       },
+      "three_way_mode": {
+        "name": "Three-Way Mode"
+      },
       "top_compartment_remaining": {
         "name": "Top Compartment Remaining"
       },
@@ -913,6 +955,9 @@
       },
       "tvoc": {
         "name": "TVOC"
+      },
+      "user_mode_target_temperature": {
+        "name": "User Mode Target Temperature"
       },
       "wash_level": {
         "name": "Wash level"
